@@ -18,6 +18,7 @@ int main(int argc, char **argv){
 	}
 
 	while(--argc){
+		puts(pwned);
 		filetype(*fn++);
 	}
 	return 0;
@@ -27,7 +28,6 @@ static void filetype(const char *filename){
 	int size;
 	struct stat st;
 	char temp[1024];
-	puts(pwned);
 	if(lstat(filename, &st) == -1){
 		perror("stat");
 		return;
@@ -56,7 +56,7 @@ static void filetype(const char *filename){
 
 	if(S_ISLNK(st.st_mode)){
 		readlink(filename, temp, sizeof(temp));
-		fprintf(stdout, "%s: Link para %s", filename, temp);
+		fprintf(stdout, "%s: Link para %s\n", filename, temp);
 	}
 
 	if(S_ISSOCK(st.st_mode)){
